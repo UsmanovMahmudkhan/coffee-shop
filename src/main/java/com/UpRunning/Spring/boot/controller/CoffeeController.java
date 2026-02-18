@@ -19,8 +19,6 @@ public class CoffeeController {
 
     public CoffeeController(CoffeeRepository repository) {
         this.repository = repository;
-        repository.save(new Coffee("capunichino"));
-        repository.save(new Coffee("Americano"));
     }
 
     @GetMapping("/get")
