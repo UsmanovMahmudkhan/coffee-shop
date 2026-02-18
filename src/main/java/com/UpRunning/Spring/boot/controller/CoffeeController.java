@@ -6,6 +6,7 @@ import com.UpRunning.Spring.boot.Repository.CoffeeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -40,10 +41,13 @@ public class CoffeeController {
     }
 
     @PutMapping("/update/{id}")
+    @Transactional
     public ResponseEntity<Boolean>update(@PathVariable UUID id,@RequestBody CoffeeUpdateRequest request){
-        var coffee=repository.findById(id);
-        coffee.get().setName(request.getName());
-        return ResponseEntity.status(HttpStatus.CREATED)
+        if(repository.existsById(id)){
+            var coffee=repository.findById(id);
+            coffee.get().setName(request.getName());
+        }
+        return ResponseEntity.status(HttpStatus.ACCEPTED)
                 .body(true);
     }
 
