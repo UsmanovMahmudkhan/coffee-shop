@@ -28,7 +28,7 @@ public class CoffeeController {
         return repository.findAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     public Optional<Coffee> getById(@PathVariable UUID id){
         CoffeeController.log.info("Retrieved: {}", repository.findById(id));
         return repository.findById(id);
